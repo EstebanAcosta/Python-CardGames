@@ -5,6 +5,7 @@ def setUpPlayers():
     print("How many players do you want in this game?\n")
 
 
+
 def addPlayers(player):
     players.append(player)
 

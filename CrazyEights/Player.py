@@ -15,4 +15,17 @@ class Player:
     def setName(self,name):
         self.name = name
 
-    def
+    def getPlayerHand(self):
+        return self.playerHand
+
+    def setPlayerHand(self,playerHand):
+        self.playerHand = playerHand
+
+    def getPlayerHandSize(self):
+        return len(self.playerHand)
+
+    def addMultipleToPlayerHand(self,moreCards):
+        self.playerHand.extend(moreCards)
+
+    def addOneToPlayerHand(self,aCard):
+        self.playerHand.append(aCard)

@@ -1,7 +1,7 @@
 from Suits import*
 from Ranks import*
 from Card import*
-
+import random
 class Deck:
 
     deck = []
@@ -10,7 +10,7 @@ class Deck:
         self.setUpDeck()
 
     def shuffle(self):
-        self.deck.shuffle()
+        random.shuffle(self.deck)
         print("Deck has been shuffled\n")
 
     def setUpDeck(self):
@@ -23,15 +23,17 @@ class Deck:
 
         for s in suits:
             for r in ranks:
-                deck.append(Card(s,r))
+                deck.append(Card(r,s))
 
         self.deck = deck
 
+    def getDeck(self):
+        return self.deck
 
-    def draw(self):
+    def drawOne(self):
         return self.deck.pop()
 
-    def draw(self,num):
+    def drawMultiple(self,num):
         cards = []
         for i in range(num):
             cards.append(self.deck.pop())

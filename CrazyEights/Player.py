@@ -33,4 +33,17 @@ class Player:
     def removeOneFromPlayerHand(self,position):
         return self.playerHand.pop(position - 1)
 
+    def removeMultipleFromPlayerHand(self,newCards):
+        for card in newCards:
+            for playerCard in self.playerHand:
+                if card == playerCard:
+                    self.playerHand.remove(playerCard)
+
+    def containsThisCard(self,thisCard):
+        for eachCard in self.playerHand:
+            if eachCard == thisCard:
+                return True
+        return False
+
+
 

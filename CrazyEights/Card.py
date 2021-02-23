@@ -19,8 +19,14 @@ class Card:
     def setRank(self,rank):
         self.rank = rank
 
+    def __eq__(self, other):
+        if other == None:
+            return False
+        return self.rank == other.rank and self.suit == other.suit
+
+
     def __str__(self):
         if len(self.suit) != 0:
-            return self.getSuit() + " of " + self.getRank()
+            return self.getRank() + " of " + self.getSuit()
         else:
             return self.getRank()

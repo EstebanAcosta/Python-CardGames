@@ -27,5 +27,10 @@ class Player:
     def addMultipleToPlayerHand(self,moreCards):
         self.playerHand.extend(moreCards)
 
-    def addOneToPlayerHand(self,aCard):
-        self.playerHand.append(aCard)
+    def addOneToPlayerHand(self,oneCard):
+        self.playerHand.append(oneCard)
+
+    def removeOneFromPlayerHand(self,position):
+        return self.playerHand.pop(position - 1)
+
+

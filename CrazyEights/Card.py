@@ -21,6 +21,6 @@ class Card:
 
     def __str__(self):
         if len(self.suit) != 0:
-            return self.getSuit() + " " + self.getRank()
+            return self.getSuit() + " of " + self.getRank()
         else:
             return self.getRank()

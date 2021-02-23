@@ -3,6 +3,7 @@ from Ranks import*
 from Card import*
 
 class Deck:
+
     deck = []
 
     def __init__(self):
@@ -10,14 +11,22 @@ class Deck:
 
     def shuffle(self):
         self.deck.shuffle()
+        print("Deck has been shuffled\n")
 
     def setUpDeck(self):
         deck = []
-        suits = Suits()
-        ranks = Ranks()
+        suit = Suits()
+        rank = Ranks()
 
-        for suit in Suit:
-            for rank in Rank:
+        suits = suit.getSuits()
+        ranks = rank.getRanks()
+
+        for s in suits:
+            for r in ranks:
+                deck.append(Card(s,r))
+
+        self.deck = deck
+
 
     def draw(self):
         return self.deck.pop()
@@ -29,7 +38,7 @@ class Deck:
 
         return cards
 
-    def getSize(self):
+    def getDeckSize(self):
         return len(self.deck)
 
     def __str__(self):
@@ -39,10 +48,10 @@ class Deck:
 
         for card in self.deck:
             if numOfCardsInSuit % 13 == 0:
-                Deck += card + "\n\n"
+                Deck += card.__str__() + "\n\n"
                 numOfCardsInSuit = 0
             else:
-                Deck += card + "\n"
+                Deck += card.__str__() + "\n"
             numOfCardsInSuit+=1
 
         return Deck

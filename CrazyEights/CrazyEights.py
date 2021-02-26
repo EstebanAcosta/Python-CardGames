@@ -34,7 +34,16 @@ def setUpNumPlayers():
     print("_____________________________________________________________")
 
 def setUpPlayers():
-    pass
+    deck = Deck()
+
+    deck.shuffle()
+
+    howManyCardsEachPlayerNeeds = 0
+    if len(players) == 2:
+        howManyCardsEachPlayerNeeds = 7
+    else:
+        howManyCardsEachPlayerNeeds = 8
+
 
 def setUpGame():
     pass
@@ -42,6 +51,15 @@ def setUpGame():
 def startGame():
     pass
 
+#End game once at least one has gotten rid of all their cards
+def endGame():
+    for player in players:
+        if player.getPlayerHandSize() == 0:
+            return True
+
+    return False
+
+#main method
 def run():
     setUpNumPlayers()
     setUpPlayers()

@@ -3,14 +3,11 @@ from Ranks import*
 from Card import*
 import random
 class Deck:
-
-    deck = []
-
     def __init__(self):
         self.setUpDeck()
 
     def shuffle(self):
-        random.shuffle(self.deck)
+        random.shuffle(self.__deck)
         print("Deck has been shuffled\n")
 
     def setUpDeck(self):
@@ -25,30 +22,30 @@ class Deck:
             for r in ranks:
                 deck.append(Card(r,s))
 
-        self.deck = deck
+        self.__deck = deck
 
     def getDeck(self):
-        return self.deck
+        return self.__deck
 
     def drawOne(self):
-        return self.deck.pop()
+        return self.__deck.pop()
 
     def drawMultiple(self,num):
         cards = []
         for i in range(num):
-            cards.append(self.deck.pop())
+            cards.append(self.__deck.pop())
 
         return cards
 
     def getDeckSize(self):
-        return len(self.deck)
+        return len(self.__deck)
 
     def __str__(self):
         Deck = ""
 
         numOfCardsInSuit = 1
 
-        for card in self.deck:
+        for card in self.__deck:
             if numOfCardsInSuit % 13 == 0:
                 Deck += card.__str__() + "\n\n"
                 numOfCardsInSuit = 0

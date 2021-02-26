@@ -1,32 +1,27 @@
 class Card:
-
-    rank = ""
-    suit = ""
-
     def __init__(self,rank,suit):
         self.setRank(rank)
         self.setSuit(suit)
 
     def getRank(self):
-        return self.rank
+        return self.__rank
 
     def getSuit(self):
-        return self.suit
+        return self.__suit
 
     def setSuit(self,suit):
-        self.suit = suit
+        self.__suit = suit
 
     def setRank(self,rank):
-        self.rank = rank
+        self.__rank = rank
 
     def __eq__(self, other):
         if other == None:
             return False
-        return self.rank == other.rank and self.suit == other.suit
-
+        return self.__rank == other.getRank() and self.__suit == other.getSuit()
 
     def __str__(self):
-        if len(self.suit) != 0:
+        if len(self.__suit) != 0:
             return self.getRank() + " of " + self.getSuit()
         else:
             return self.getRank()

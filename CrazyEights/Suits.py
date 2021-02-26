@@ -1,9 +1,9 @@
 class Suits():
-    suits = ["DIAMONDS", "SPADES", "HEARTS", "CLUBS"]
+    __suits = ["DIAMONDS", "SPADES", "HEARTS", "CLUBS"]
 
     def getSuits(self):
-        return self.suits
+        return self.__suits
 
     def getNumOfSuits(self):
-        return len(self.suits)
+        return len(self.__suits)
 

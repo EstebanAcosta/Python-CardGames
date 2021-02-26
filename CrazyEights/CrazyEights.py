@@ -10,7 +10,7 @@ def addPlayers(howManyPlayers):
     for numPlayer in range(howManyPlayers):
         players.append(Player(numPlayer + 1))
 
-def setUpPlayers():
+def setUpNumPlayers():
     print("Welcome to Crazy Eights\n")
     print("How many players do you want in this game?")
     print("Minimum number of players is two and Maximum number of players is five\n")
@@ -31,6 +31,10 @@ def setUpPlayers():
 
     print(str(numPlayers) + " players have been added to the game\n")
 
+    print("_____________________________________________________________")
+
+def setUpPlayers():
+    pass
 
 def setUpGame():
     pass
@@ -39,8 +43,9 @@ def startGame():
     pass
 
 def run():
+    setUpNumPlayers()
     setUpPlayers()
-    # setUpGame()
-    # startGame()
+    setUpGame()
+    startGame()
 
 run()

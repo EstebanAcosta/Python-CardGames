@@ -84,7 +84,6 @@ def setUpPlayers():
 
     setUpGame(deck)
 
-
 def setUpGame(deck):
     rounds = 0
     minRounds = 3
@@ -106,16 +105,22 @@ def startGame(deck,rounds):
     print("Crazy Eights\n")
     whoseTurn = random.randint(0,len(players))
     currentRound = 0
+    discardPile = []
+    discardPile.append(deck.drawOne())
+
 
     while currentRound < rounds:
         while endGame() == False:
             print("Round " + str(currentRound + 1))
             print("Player " + str(players[whoseTurn].getPlayerID()) + " " + players[whoseTurn].getName() + "'s Turn")
+            print("Discard Pile: " + discardPile[len(discardPile) - 1].__str__())
+
             currentRound+=1
             whoseTurn = whoseTurnIsIt(whoseTurn)
             break
         break
 
+#Determine who's going next in the game
 def whoseTurnIsIt(whoseTurn):
     if whoseTurn + 1 == len(players):
         return 0

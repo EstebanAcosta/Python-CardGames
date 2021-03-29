@@ -45,6 +45,3 @@ class Player:
             if eachCard == thisCard:
                 return True
         return False
-
-
-

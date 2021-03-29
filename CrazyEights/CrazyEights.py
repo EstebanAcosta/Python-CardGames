@@ -27,8 +27,8 @@ def setUpNumPlayers():
         inputNumPlayers =input("Please keep the number of players between " + str(minPlayers) + " and " + str(maxPlayers) + "\n")
 
         #prompt player again if their input isn't a number
-        while not re.match("[0-9]+",inputNumPlayers):
-           inputNumPlayers = input("Please enter a number\n")
+        while re.match("[0-9]+$",inputNumPlayers) == None:
+           inputNumPlayers = input("Please enter a whole number\n")
 
         #convert string input into an integer
         numPlayers = int(inputNumPlayers)
@@ -89,10 +89,11 @@ def setUpGame(deck):
     minRounds = 3
     maxRounds = 5
     inputRounds = ""
+    #continue looping until user inputs a number for number rounds that is between the min and the max
     while rounds < minRounds or rounds > maxRounds:
         inputRounds = input("Please enter a number for number of rounds that's less than " + str(minRounds) + " and more than " + str(maxRounds) + "\n")
 
-        while not re.match("[0-9]+",inputRounds):
+        while re.match("[0-9]+$",inputRounds) == None:
             inputRounds = input("Please enter a number for rounds\n")
 
         rounds = int(inputRounds)
@@ -102,22 +103,74 @@ def setUpGame(deck):
 
 def startGame(deck,rounds):
     deck = Deck()
+    #shuffle the deck
+    deck.shuffle()
     print("Crazy Eights\n")
-    whoseTurn = random.randint(0,len(players))
+    #randomly select the first player to play the game
+    whoseTurn = random.randint(0,len(players) - 1)
+    #set the current round to 0
     currentRound = 0
+    #create an empty discard pile
     discardPile = []
+    #draw a card from the deck and add it to the discard pile
     discardPile.append(deck.drawOne())
 
+    #continue looping until we get a card that doesn't have an eight on it
+    while discardPile[len(discardPile) - 1].getRank() == "EIGHT":
+        #clear the discard pile
+        discardPile.clear()
+        #reset the deck
+        deck = Deck()
+        #shuffle the deck
+        deck.shuffle()
+        #pick up the top card of the deck and put it in the discard pile
+        discardPile.append(deck.drawOne())
 
+    #continue looping until there are no more rounds left
     while currentRound < rounds:
+        #continue looping until the game is over
         while endGame() == False:
+            topCard = discardPile[len(discardPile) - 1]
             print("Round " + str(currentRound + 1))
-            print("Player " + str(players[whoseTurn].getPlayerID()) + " " + players[whoseTurn].getName() + "'s Turn")
-            print("Discard Pile: " + discardPile[len(discardPile) - 1].__str__())
+            print("Player " + str(players[whoseTurn].getPlayerID()) + " " + players[whoseTurn].getName() + "'s Turn\n")
+            print("Discard Pile: " + topCard.__str__() + "\n")
+            players[whoseTurn].showPlayerCards()
 
-            currentRound+=1
+            whichCard = 0
+            thatCard = ""
+            selectedCard = ""
+
+            #if the current player has card in their hand whose rank or suit matches the top card's rank or suit
+            if players[whoseTurn].hasMatchingCard(topCard):
+                 while whichCard < 1 or whichCard > len(players[whoseTurn].getPlayerHand()) or (selectedCard.getRank() != topCard.getRank() and selectedCard.getSuit() != topCard.getSuit()):
+                        if whichCard < 1 or whichCard > len(players[whoseTurn].getPlayerHand()):
+                            thatCard = input("Please enter a valid card number between 1 and " + str(len(players[whoseTurn].getPlayerHand())) + "\n")
+                        else:
+                            thatCard = input("Please select a card whose rank or suit matches the top card's rank or suit\n")
+                        # Continue looping until user inputs a whole number
+                        while re.match("[0-9]+$", thatCard) == None:
+                             thatCard = input("Please enter a card number\n")
+                        # Convert string input into an integer
+                        whichCard = int(thatCard)
+                        #store the card that the player selected
+                        selectedCard = players[whoseTurn].getCard(whichCard)
+
+            else:
+                drawnCard = ""
+                #continue looping until there's a card from the deck
+                while players[whoseTurn].hasMatchingCard(topCard) == False or deck.getDeckSize() != 0:
+                    drawnCard = deck.drawOne()
+                    players[whoseTurn].addOneToPlayerHand(drawnCard)
+
+                if deck.getDeck() == 0:
+                    pass
+                else:
+                    discardPile.append(drawnCard)
+
+            #change turns
             whoseTurn = whoseTurnIsIt(whoseTurn)
             break
+        currentRound += 1
         break
 
 #Determine who's going next in the game

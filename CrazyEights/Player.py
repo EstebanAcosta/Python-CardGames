@@ -45,3 +45,22 @@ class Player:
             if eachCard == thisCard:
                 return True
         return False
+
+    def getCard(self,position):
+        return self.__playerHand[position - 1]
+
+    def hasMatchingCard(self,topCard):
+        for card in self.__playerHand:
+            if card.getSuit() == topCard.getSuit() or card.getRank() == topCard.getRank():
+                return True
+        return False
+
+    def showPlayerCards(self):
+        print(self.getName() + "'s Hand: ")
+        position = 1
+        for card in self.getPlayerHand():
+            print(str(position)+ ": " + "( "  + card.__str__() + " )")
+            position+=1
+        print()
+
+

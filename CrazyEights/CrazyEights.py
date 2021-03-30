@@ -92,10 +92,11 @@ def setUpGame(deck):
     #continue looping until user inputs a number for number rounds that is between the min and the max
     while rounds < minRounds or rounds > maxRounds:
         inputRounds = input("Please enter a number for number of rounds that's less than " + str(minRounds) + " and more than " + str(maxRounds) + "\n")
-
+        #if player input isn't a number
         while re.match("[0-9]+$",inputRounds) == None:
+            #Display the error message and ask player for input
             inputRounds = input("Please enter a number for rounds\n")
-
+        #convert the input into an integer
         rounds = int(inputRounds)
 
     print("__________________________________________________________________________")
@@ -106,7 +107,7 @@ def startGame(deck,rounds):
     #shuffle the deck
     deck.shuffle()
     print("Crazy Eights\n")
-    #randomly select the first player to play the game
+    #randomly select a player to start the game
     whoseTurn = random.randint(0,len(players) - 1)
     #set the current round to 0
     currentRound = 0
@@ -142,9 +143,12 @@ def startGame(deck,rounds):
 
             #if the current player has card in their hand whose rank or suit matches the top card's rank or suit
             if players[whoseTurn].hasMatchingCard(topCard):
+                #continue looping until the player selects a card that is within the range of cards and their card's rank or suit matches the top card's rank or suit
                  while whichCard < 1 or whichCard > len(players[whoseTurn].getPlayerHand()) or (selectedCard.getRank() != topCard.getRank() and selectedCard.getSuit() != topCard.getSuit()):
+                        #If the selected card isn't a valid card number, print this error message
                         if whichCard < 1 or whichCard > len(players[whoseTurn].getPlayerHand()):
                             thatCard = input("Please enter a valid card number between 1 and " + str(len(players[whoseTurn].getPlayerHand())) + "\n")
+                        #If the selected card doesn't match with the top card, print this error message
                         else:
                             thatCard = input("Please select a card whose rank or suit matches the top card's rank or suit\n")
                         # Continue looping until user inputs a whole number
@@ -154,24 +158,28 @@ def startGame(deck,rounds):
                         whichCard = int(thatCard)
                         #store the card that the player selected
                         selectedCard = players[whoseTurn].getCard(whichCard)
-
+                 #Add the last card the player added to their hand to the discard pile
+                 discardPile.append(players[whoseTurn].removeOneFromPlayerHand(whichCard))
             else:
-                drawnCard = ""
                 #continue looping until there's a card from the deck
-                while players[whoseTurn].hasMatchingCard(topCard) == False or deck.getDeckSize() != 0:
+                while players[whoseTurn].hasMatchingCard(topCard) == False and deck.getDeckSize() != 0:
                     drawnCard = deck.drawOne()
                     players[whoseTurn].addOneToPlayerHand(drawnCard)
+                    print("Drawn Card: " + drawnCard.__str__())
+                    print("______________________________________________")
+                    nextInput = ""
+                    while nextInput != "n":
+                        nextInput = input("Press n for next")
 
                 if deck.getDeck() == 0:
                     pass
                 else:
-                    discardPile.append(drawnCard)
+                    discardPile.append(players[whoseTurn].removeOneFromPlayerHand(players[whoseTurn].getPlayerHandSize()))
 
             #change turns
             whoseTurn = whoseTurnIsIt(whoseTurn)
-            break
+            print("________________________________________________________________________________________________________")
         currentRound += 1
-        break
 
 #Determine who's going next in the game
 def whoseTurnIsIt(whoseTurn):

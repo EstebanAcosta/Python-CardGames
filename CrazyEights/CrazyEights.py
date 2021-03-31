@@ -103,7 +103,6 @@ def setUpGame(deck):
     startGame(deck,rounds)
 
 def startGame(deck,rounds):
-    deck = Deck()
     #shuffle the deck
     deck.shuffle()
     print("Crazy Eights\n")
@@ -130,7 +129,7 @@ def startGame(deck,rounds):
     #continue looping until there are no more rounds left
     while currentRound < rounds:
         #continue looping until the game is over
-        while endGame() == False:
+        while endGame(deck) == False:
             topCard = discardPile[len(discardPile) - 1]
             print("Round " + str(currentRound + 1))
             print("Player " + str(players[whoseTurn].getPlayerID()) + " " + players[whoseTurn].getName() + "'s Turn\n")
@@ -157,7 +156,8 @@ def startGame(deck,rounds):
                         # Convert string input into an integer
                         whichCard = int(thatCard)
                         #store the card that the player selected
-                        selectedCard = players[whoseTurn].getCard(whichCard)
+                        if whichCard >= 1 and whichCard <= len(players[whoseTurn].getPlayerHand()):
+                             selectedCard = players[whoseTurn].getCard(whichCard)
                  #Add the last card the player added to their hand to the discard pile
                  discardPile.append(players[whoseTurn].removeOneFromPlayerHand(whichCard))
             else:
@@ -172,7 +172,7 @@ def startGame(deck,rounds):
                         nextInput = input("Press n for next")
 
                 if deck.getDeck() == 0:
-                    pass
+                    continue
                 else:
                     discardPile.append(players[whoseTurn].removeOneFromPlayerHand(players[whoseTurn].getPlayerHandSize()))
 
@@ -191,10 +191,13 @@ def whoseTurnIsIt(whoseTurn):
 
 
 #End game once at least one has gotten rid of all their cards
-def endGame():
+#Or if the deck is empty
+def endGame(deck):
     for player in players:
         if player.getPlayerHandSize() == 0:
             return True
+    if deck.getDeckSize() == 0:
+        return True
     return False
 
 #main method

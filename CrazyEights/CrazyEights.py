@@ -86,8 +86,8 @@ def setUpPlayers():
 
 def setUpGame(deck):
     rounds = 0
-    minRounds = 3
-    maxRounds = 5
+    minRounds = 1
+    maxRounds = 3
     inputRounds = ""
     #continue looping until user inputs a number for number rounds that is between the min and the max
     while rounds < minRounds or rounds > maxRounds:
@@ -143,7 +143,7 @@ def startGame(deck,rounds):
             #if the current player has card in their hand whose rank or suit matches the top card's rank or suit
             if players[whoseTurn].hasMatchingCard(topCard):
                 #continue looping until the player selects a card that is within the range of cards and their card's rank or suit matches the top card's rank or suit
-                 while whichCard < 1 or whichCard > len(players[whoseTurn].getPlayerHand()) or (selectedCard.getRank() != topCard.getRank() and selectedCard.getSuit() != topCard.getSuit()):
+                 while whichCard < 1 or whichCard > len(players[whoseTurn].getPlayerHand()) or (selectedCard.getRank() != topCard.getRank() and selectedCard.getSuit() != topCard.getSuit() and selectedCard.getRank() != "EIGHT"):
                         #If the selected card isn't a valid card number, print this error message
                         if whichCard < 1 or whichCard > len(players[whoseTurn].getPlayerHand()):
                             thatCard = input("Please enter a valid card number between 1 and " + str(len(players[whoseTurn].getPlayerHand())) + "\n")
@@ -163,15 +163,19 @@ def startGame(deck,rounds):
             else:
                 #continue looping until there's a card from the deck
                 while players[whoseTurn].hasMatchingCard(topCard) == False and deck.getDeckSize() != 0:
+                    #draw one card from the deck and store it in a var
                     drawnCard = deck.drawOne()
+                    #Add the drawn card to the player's hand
                     players[whoseTurn].addOneToPlayerHand(drawnCard)
+                    #print the drawn card
                     print("Drawn Card: " + drawnCard.__str__())
                     print("______________________________________________")
                     nextInput = ""
+                    #Continue pressing n until the next drawn card matches with the top card
                     while nextInput != "n":
-                        nextInput = input("Press n for next")
-
-                if deck.getDeck() == 0:
+                        nextInput = input("Press n for next\n")
+                #if the deck is empty
+                if deck.getDeckSize() == 0:
                     continue
                 else:
                     discardPile.append(players[whoseTurn].removeOneFromPlayerHand(players[whoseTurn].getPlayerHandSize()))
@@ -179,8 +183,13 @@ def startGame(deck,rounds):
             #change turns
             whoseTurn = whoseTurnIsIt(whoseTurn)
             print("________________________________________________________________________________________________________")
+        printGameResults()
         currentRound += 1
 
+def printGameResults():
+    for player in players:
+        for card in player.getPlayerHand():
+            pass
 #Determine who's going next in the game
 def whoseTurnIsIt(whoseTurn):
     if whoseTurn + 1 == len(players):
@@ -204,5 +213,4 @@ def endGame(deck):
 def run():
     setUpNumPlayers()
     setUpPlayers()
-
 run()

@@ -3,6 +3,7 @@ class Player:
         self.setPlayerID(id)
         self.setPlayerHand([])
         self.setName("")
+        self.setCurrentScore(0)
 
     def setPlayerID(self,id):
         self.__id = id
@@ -21,6 +22,15 @@ class Player:
 
     def setPlayerHand(self,playerHand):
         self.__playerHand = playerHand
+
+    def setCurrentScore(self, score):
+        self.__current_score = 0
+
+    def getCurrentScore(self):
+        return self.__current_score
+
+    def addToCurrentScore(self, score):
+        self.__current_score += score
 
     def getPlayerHandSize(self):
         return len(self.__playerHand)
@@ -51,7 +61,7 @@ class Player:
 
     def hasMatchingCard(self,topCard):
         for card in self.__playerHand:
-            if card.getSuit() == topCard.getSuit() or card.getRank() == topCard.getRank():
+            if card.getSuit() == topCard.getSuit() or card.getRank() == topCard.getRank() or card.getRank() == "EIGHT":
                 return True
         return False
 

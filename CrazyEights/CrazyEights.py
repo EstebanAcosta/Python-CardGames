@@ -241,6 +241,8 @@ def startGame(deck,rounds):
         #reset the deck
         deck = Deck()
 
+        deck.shuffle()
+
         #reset the discard pile
         discardPile.clear()
 
@@ -295,7 +297,7 @@ def getGameResults(round):
             #set the minimum score to be the player's current score
             minScore = player.getCurrentScore()
 
-    print("Winner of Round " + str(round) + " is " + winner.getName() + " with " + str(winner.getCurrentScore()) + " points")
+    print("Winner of Round " + str(round + 1) + " is " + winner.getName() + " with " + str(winner.getCurrentScore()) + " points")
     print("_______________________________________________________________________")
     return winner.getPlayerID()
 

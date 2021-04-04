@@ -50,6 +50,9 @@ class Player:
                 if card == playerCard:
                     self.__playerHand.remove(playerCard)
 
+    def clearHand(self):
+        self.__playerHand.clear()
+
     def containsThisCard(self,thisCard):
         for eachCard in self.__playerHand:
             if eachCard == thisCard:

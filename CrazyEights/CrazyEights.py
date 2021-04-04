@@ -140,7 +140,7 @@ def startGame(deck,rounds):
             thatCard = ""
             selectedCard = ""
 
-            #if the current player has card in their hand whose rank or suit matches the top card's rank or suit
+            #if the current player has card in their hand whose rank or suit matches the top card's rank or suit or if they have a wild card
             if players[whoseTurn].hasMatchingCard(topCard):
                 #continue looping until the player selects a card that is within the range of cards and their card's rank or suit matches the top card's rank or suit
                  while whichCard < 1 or whichCard > len(players[whoseTurn].getPlayerHand()) or (selectedCard.getRank() != topCard.getRank() and selectedCard.getSuit() != topCard.getSuit() and selectedCard.getRank() != "EIGHT"):
@@ -183,13 +183,49 @@ def startGame(deck,rounds):
             #change turns
             whoseTurn = whoseTurnIsIt(whoseTurn)
             print("________________________________________________________________________________________________________")
-        printGameResults()
+        printGameResults(currentRound)
         currentRound += 1
 
-def printGameResults():
+def printGameResults(round):
+    #create a ranks object
+    rank = Ranks()
+    #get the dictionary of ranks in the ranks class
+    ranks = rank.getRanks()
+
+    print("Results Of Round " + str(round) + ":\n")
+    winner = ""
+    minScore = 0
+
+    #loop through each player in the list of players
     for player in players:
+        #set score to 0
+        score = 0
+        #loop through each card in the player's hand
         for card in player.getPlayerHand():
-            pass
+            #Take the card's rank, search the value associated with that rank in the ranks dictionary and add it to the total score
+            score+=ranks[card.getRank()]
+        player.addToCurrentScore(score)
+        print(player.getName() + " scored " + str(score) + " points this round\n")
+        print("_______________________________________________________________________\n")
+
+    #set the winner to some random player
+    winner = players[0]
+    #set the minimum score to the random player's current score
+    minScore = players[0].getCurrentScore()
+
+    #Loop through each player
+    for player in players:
+        #If this player's current score is less than the minimum score
+        if player.getCurrentScore() < minScore:
+            #set that player to be the winner
+            winner = player
+            #set the minimum score to be the player's current score
+            minScore = player.getCurrentScore()
+
+    print("Winner of Round " + str(round) + " is " + winner.getName() + " with " + str(winner.getCurrentScore()) + " points")
+    print("_______________________________________________________________________")
+
+
 #Determine who's going next in the game
 def whoseTurnIsIt(whoseTurn):
     if whoseTurn + 1 == len(players):

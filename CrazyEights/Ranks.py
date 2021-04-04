@@ -6,12 +6,12 @@ class Ranks():
              "FIVE": 5,
              "SIX": 6,
              "SEVEN": 7,
-             "EIGHT": 8,
+             "EIGHT": 50,
              "NINE": 9,
              "TEN": 10,
-             "JACK": 11,
-             "QUEEN": 12,
-             "KING": 13}
+             "JACK": 10,
+             "QUEEN": 10,
+             "KING": 10}
 
     def getRanks(self):
         return self.__ranks

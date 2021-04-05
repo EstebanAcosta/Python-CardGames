@@ -62,11 +62,59 @@ class Player:
     def getCard(self,position):
         return self.__playerHand[position - 1]
 
-    def hasMatchingCard(self,topCard):
+    def hasRoyalFlush(self):
+        pass
+
+    def hasStraightFlush(self):
+        pass
+
+    def hasFourOfKind(self):
+        pass
+
+    def hasFullHouse(self):
+        pass
+
+    def hasFlush(self):
+        pass
+
+    def hasStraight(self):
+        pass
+
+    def hasThreeOfKind(self):
+        pass
+
+    def hasTwoPair(self):
+        pass
+
+    def hasPair(self):
+        pass
+
+    def hasHighCard(self):
+        pass
+
+    def numTimesRankAppears(self):
+        ranks = self.getAllRanksPlayerHas()
+
+        return {rank : self.__playerHand.count(rank) for rank in ranks}
+
+    def numTimesSuitAppears(self):
+        suits = self.getAllSuitsPlayerHas()
+
+        return {suit : self.__playerHand.count(suit) for suit in suits}
+
+    def getAllRanksPlayerHas(self):
+        ranks = []
         for card in self.__playerHand:
-            if card.getSuit() == topCard.getSuit() or card.getRank() == topCard.getRank() or card.getRank() == "EIGHT":
-                return True
-        return False
+            if card.getRank() not in ranks:
+                ranks.append(card.getRank())
+        return ranks
+
+    def getAllSuitsPlayerHas(self):
+        suits = []
+        for card in self.__playerHand:
+            if card.getSuit() not in suits:
+                suits.append(card.getSuit())
+        return suits
 
     def showPlayerCards(self):
         print(self.getName() + "'s Hand: ")

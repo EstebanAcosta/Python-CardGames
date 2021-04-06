@@ -63,34 +63,34 @@ class Player:
         return self.__playerHand[position - 1]
 
     def hasRoyalFlush(self):
-        pass
+       return False
 
     def hasStraightFlush(self):
-        pass
+        return False
 
     def hasFourOfKind(self):
-        pass
+        return False
 
     def hasFullHouse(self):
-        pass
+        return False
 
     def hasFlush(self):
-        pass
+        return False
 
     def hasStraight(self):
-        pass
+        return False
 
     def hasThreeOfKind(self):
-        pass
+        return False
 
     def hasTwoPair(self):
-        pass
+        return False
 
     def hasPair(self):
-        pass
+        return False
 
     def hasHighCard(self):
-        pass
+        return False
 
     def numTimesRankAppears(self):
         ranks = self.getAllRanksPlayerHas()

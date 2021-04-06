@@ -1,5 +1,5 @@
 class Ranks():
-    __ranks = {"ACE": 1,
+    __ranks = {
              "TWO": 2,
              "THREE": 3,
              "FOUR": 4,
@@ -11,7 +11,8 @@ class Ranks():
              "TEN": 10,
              "JACK": 11,
              "QUEEN": 12,
-             "KING": 13}
+             "KING": 13,
+            "ACE": 14,}
 
     def getRanks(self):
         return self.__ranks

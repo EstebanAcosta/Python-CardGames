@@ -72,10 +72,58 @@ def setUpPlayers():
 
         print("___________________________________________________________________________")
 
-def determineRanking(hand):
+        setUpGame(deck)
 
-    for card in hand:
+def setUpGame(deck):
+    startGame()
+
+def startGame(deck):
+    whoseTurn = random.randint()
+
+    while endGame():
         pass
+
+def endGame():
+    return False
+
+def determineRanking(player):
+    if player.hasRoyalFlush():
+        return "Royal_Flush"
+
+    elif player.hasStraightFlush():
+        return "Straight_Flush"
+
+    elif player.hasFourOfKind():
+        return "Four_Of_A_Kind"
+
+    elif player.hasFullHouse():
+        return "Full_House"
+
+    elif player.hasFlush():
+        return "Flush"
+
+    elif player.hasStraight():
+        return "Straight"
+
+    elif player.hasThreeOfKind():
+        return "Three_Of_A_Kind"
+
+    elif player.hasTwoPair():
+        return "Two_Pair"
+
+    elif player.hasPair():
+        return "Pair"
+
+    elif player.hasHighCard():
+        return "High_Card"
+#Determine who's going next in the game
+def whoseTurnIsIt(whoseTurn):
+    if whoseTurn + 1 == len(players):
+        return 0
+    else:
+        whoseTurn+=1
+    return whoseTurn
+
 #main method
 def run():
     setUpNumPlayers()

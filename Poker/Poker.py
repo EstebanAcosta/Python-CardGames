@@ -75,10 +75,13 @@ def setUpPlayers():
         setUpGame(deck)
 
 def setUpGame(deck):
-    startGame()
+    startGame(deck)
 
 def startGame(deck):
-    whoseTurn = random.randint()
+    # randomly select a player to start the game
+    whoseTurn = random.randint(0, len(players) - 1)
+    # set the current round to 0
+    currentRound = 0
 
     while endGame():
         pass

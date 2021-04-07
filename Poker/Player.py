@@ -1,3 +1,4 @@
+from Ranks import*
 class Player:
     def __init__(self,id):
         self.setPlayerID(id)
@@ -21,7 +22,7 @@ class Player:
         return self.__playerHand
 
     def setPlayerHand(self,playerHand):
-        self.__playerHand = playerHand
+        self.__playerHand = self.sort(playerHand)
 
     def setCurrentScore(self, score):
         self.__current_score = 0
@@ -63,6 +64,25 @@ class Player:
         return self.__playerHand[position - 1]
 
     def hasRoyalFlush(self):
+       suits = self.numTimesSuitAppears()
+
+       suit = ""
+
+       #loop through the suits dictionary
+       for key in suits:
+           #if the # of times the suit appears is the same as the number of cards in the player's hand
+           #in other words if there are five cards with the same suit
+           if suits[key] == len(self.__playerHand):
+                #store the suit value
+                suit = key
+                break
+           #if there are no five cards that have the same suit
+           else:
+               return False
+
+       for card in self.__playerHand:
+           pass
+
        return False
 
     def hasStraightFlush(self):
@@ -91,6 +111,24 @@ class Player:
 
     def hasHighCard(self):
         return False
+
+    def sort(self,playerHand):
+
+        rank = Ranks().getRanks()
+
+        # Traverse through all array elements
+        for i in range(len(playerHand)):
+
+            # Find the minimum element in remaining
+            # unsorted array
+            min_idx = i
+            for j in range(i + 1, len(playerHand)):
+                if self.__playerHand[min_idx].getRank() > self.__playerHand[j].getRank():
+                    min_idx = j
+
+            # Swap the found minimum element with
+            # the first element
+            self.__playerHand[i], self.__playerHand[min_idx] = self.__playerHand[min_idx], self.__playerHand[i]
 
     def numTimesRankAppears(self):
         ranks = self.getAllRanksPlayerHas()

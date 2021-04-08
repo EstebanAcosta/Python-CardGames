@@ -12,7 +12,7 @@ class Ranks():
              "JACK": 11,
              "QUEEN": 12,
              "KING": 13,
-            "ACE": 14,}
+            "ACE": 14}
 
     def getRanks(self):
         return self.__ranks

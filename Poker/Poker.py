@@ -83,42 +83,16 @@ def startGame(deck):
     # set the current round to 0
     currentRound = 0
 
+    print(players[0].determineRanking())
+
+
     while endGame():
         pass
 
 def endGame():
     return False
 
-def determineRanking(player):
-    if player.hasRoyalFlush():
-        return "Royal_Flush"
 
-    elif player.hasStraightFlush():
-        return "Straight_Flush"
-
-    elif player.hasFourOfKind():
-        return "Four_Of_A_Kind"
-
-    elif player.hasFullHouse():
-        return "Full_House"
-
-    elif player.hasFlush():
-        return "Flush"
-
-    elif player.hasStraight():
-        return "Straight"
-
-    elif player.hasThreeOfKind():
-        return "Three_Of_A_Kind"
-
-    elif player.hasTwoPair():
-        return "Two_Pair"
-
-    elif player.hasPair():
-        return "Pair"
-
-    elif player.hasHighCard():
-        return "High_Card"
 #Determine who's going next in the game
 def whoseTurnIsIt(whoseTurn):
     if whoseTurn + 1 == len(players):

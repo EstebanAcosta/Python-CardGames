@@ -63,6 +63,37 @@ class Player:
     def getCard(self,position):
         return self.__playerHand[position - 1]
 
+    def determineRanking(self):
+        if self.hasRoyalFlush():
+            return "Royal_Flush"
+
+        elif self.hasStraightFlush():
+            return "Straight_Flush"
+
+        elif self.hasFourOfKind():
+            return "Four_Of_A_Kind"
+
+        elif self.hasFullHouse():
+            return "Full_House"
+
+        elif self.hasFlush():
+            return "Flush"
+
+        elif self.hasStraight():
+            return "Straight"
+
+        elif self.hasThreeOfKind():
+            return "Three_Of_A_Kind"
+
+        elif self.hasTwoPair():
+            return "Two_Pair"
+
+        elif self.hasPair():
+            return "Pair"
+
+        elif self.hasHighCard():
+            return "High_Card"
+
     def hasRoyalFlush(self):
        suits = self.numTimesSuitAppears()
 
@@ -89,35 +120,60 @@ class Player:
 
         suit = ""
 
+        if self.hasStraight() and self.hasFlush():
+            return True
+
+        return False
+
+    def hasFourOfKind(self):
+        ranks = self.numTimesRankAppears()
+
+        #loop through the ranks dictionary
+        #(dictionary contains each rank that appears in the player's hand and how many times each rank appears in the player's hand)
+        for key in ranks:
+            #if this rank appear four times in the player's hand
+            if ranks[key] == 4:
+                return True
+
+        return False
+
+    def hasFullHouse(self):
+        #if this player's hand has three cards of the same suit and two cards of the same suit
+        if self.hasThreeOfKind() == True and self.hasPair() == True:
+            return True
+        return False
+
+    def hasFlush(self):
+        suits = self.numTimesSuitAppears()
+
         # loop through the suits dictionary
         for key in suits:
             # if the # of times the suit appears is the same as the number of cards in the player's hand
             # in other words if there are five cards with the same suit
             if suits[key] == len(self.__playerHand):
-                break
-            # if there are no five cards that have the same suit
-            else:
-                return False
+                return True
 
+        return False
+
+    def hasStraight(self):
+        # loop through the player's hand
         for i in range(len(self.__playerHand) - 1):
+            # if this card's rank isn't one less than the next card's rank(if they aren't consecutive cards)
             if self.__playerHand[i].getRankValue() + 1 != self.__playerHand[i].getRankValue():
                 return False
 
         return True
 
-    def hasFourOfKind(self):
-        return False
-
-    def hasFullHouse(self):
-        return False
-
-    def hasFlush(self):
-        return False
-
-    def hasStraight(self):
-        return False
-
     def hasThreeOfKind(self):
+        ranks = self.numTimesRankAppears()
+
+        # loop through the ranks dictionary
+        # (dictionary contains each rank that appears in the player's hand and how many times each rank appears in the player's hand)
+        for key in ranks:
+            #if this rank appear three times in the player's hand
+            if ranks[key] == 3:
+                return True
+
         return False
 
     def hasTwoPair(self):
@@ -140,12 +196,14 @@ class Player:
             # unsorted array
             min_idx = i
             for j in range(i + 1, len(playerHand)):
-                if self.__playerHand[min_idx].getRank() > self.__playerHand[j].getRank():
+                if playerHand[min_idx].getRankValue() > playerHand[j].getRankValue():
                     min_idx = j
 
             # Swap the found minimum element with
             # the first element
-            self.__playerHand[i], self.__playerHand[min_idx] = self.__playerHand[min_idx], self.__playerHand[i]
+            playerHand[i], playerHand[min_idx] = playerHand[min_idx], playerHand[i]
+
+        return playerHand
 
     def numTimesRankAppears(self):
         ranks = self.getAllRanksPlayerHas()

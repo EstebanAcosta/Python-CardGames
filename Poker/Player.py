@@ -22,7 +22,7 @@ class Player:
         return self.__playerHand
 
     def setPlayerHand(self,playerHand):
-        self.__playerHand = self.sort(playerHand)
+        self.__playerHand = self.__sort(playerHand)
 
     def setCurrentScore(self, score):
         self.__current_score = 0
@@ -73,20 +73,37 @@ class Player:
            #if the # of times the suit appears is the same as the number of cards in the player's hand
            #in other words if there are five cards with the same suit
            if suits[key] == len(self.__playerHand):
-                #store the suit value
-                suit = key
                 break
            #if there are no five cards that have the same suit
            else:
                return False
 
-       for card in self.__playerHand:
-           pass
+       #if the player hand has a ten, jack, queen, king and an ace
+       if self.__playerHand[0].getRank() == "TEN" and  self.__playerHand[1].getRank() == "JACK" and self.__playerHand[2].getRank() == "QUEEN"  and self.__playerHand[3].getRank() == "KING" and self.__playerHand[4].getRank() == "ACE":
+            return True
 
        return False
 
     def hasStraightFlush(self):
-        return False
+        suits = self.numTimesSuitAppears()
+
+        suit = ""
+
+        # loop through the suits dictionary
+        for key in suits:
+            # if the # of times the suit appears is the same as the number of cards in the player's hand
+            # in other words if there are five cards with the same suit
+            if suits[key] == len(self.__playerHand):
+                break
+            # if there are no five cards that have the same suit
+            else:
+                return False
+
+        for i in range(len(self.__playerHand) - 1):
+            if self.__playerHand[i].getRankValue() + 1 != self.__playerHand[i].getRankValue():
+                return False
+
+        return True
 
     def hasFourOfKind(self):
         return False
@@ -112,7 +129,7 @@ class Player:
     def hasHighCard(self):
         return False
 
-    def sort(self,playerHand):
+    def __sort(self,playerHand):
 
         rank = Ranks().getRanks()
 

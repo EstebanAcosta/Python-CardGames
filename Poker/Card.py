@@ -1,3 +1,4 @@
+from Ranks import *
 class Card:
     def __init__(self,rank,suit):
         self.setRank(rank)
@@ -14,6 +15,10 @@ class Card:
 
     def setRank(self,rank):
         self.__rank = rank
+
+    def getRankValue(self):
+        ranks = Ranks().getRanks()
+        return ranks[self.__rank]
 
     def __eq__(self, other):
         if other == None:

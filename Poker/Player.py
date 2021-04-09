@@ -91,7 +91,7 @@ class Player:
         elif self.hasPair():
             return "Pair"
 
-        elif self.hasHighCard():
+        else:
             return "High_Card"
 
     def hasRoyalFlush(self):
@@ -177,13 +177,39 @@ class Player:
         return False
 
     def hasTwoPair(self):
+        ranks = self.numTimesRankAppears()
+
+        countPairs = 0
+
+        # loop through the ranks dictionary
+        # (dictionary contains each rank that appears in the player's hand and how many times each rank appears in the player's hand)
+        for key in ranks:
+            #if this rank appears twice in the player's hand
+            if ranks[key] == 2:
+                #add one to the # of pairs
+                countPairs += 1
+        #if the # of pairs in the player's hand is 2
+        if countPairs == 2:
+            return True
         return False
 
     def hasPair(self):
+        ranks = self.numTimesRankAppears()
+
+        countPairs = 0
+
+        # loop through the ranks dictionary
+        # (dictionary contains each rank that appears in the player's hand and how many times each rank appears in the player's hand)
+        for key in ranks:
+            # if this rank appears twice in the player's hand
+            if ranks[key] == 2:
+                # add one to the # of pairs
+                countPairs += 1
+        # if the # of pairs in the player's hand is 1
+        if countPairs == 1:
+            return True
         return False
 
-    def hasHighCard(self):
-        return False
 
     def __sort(self,playerHand):
 
@@ -208,12 +234,28 @@ class Player:
     def numTimesRankAppears(self):
         ranks = self.getAllRanksPlayerHas()
 
-        return {rank : self.__playerHand.count(rank) for rank in ranks}
+        rankDict = {}
+        for rank in ranks:
+            count = 0
+            for card in self.__playerHand:
+                if card.getRank() == rank:
+                    count+=1
+            rankDict[rank] = count
+
+        return rankDict
 
     def numTimesSuitAppears(self):
         suits = self.getAllSuitsPlayerHas()
 
-        return {suit : self.__playerHand.count(suit) for suit in suits}
+        suitDict = {}
+        for suit in suits:
+            count = 0
+            for card in self.__playerHand:
+                if card.getSuit() == suit:
+                    count+=1
+            suitDict[suit] = count
+
+        return suitDict
 
     def getAllRanksPlayerHas(self):
         ranks = []

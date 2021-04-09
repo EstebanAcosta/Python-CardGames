@@ -39,6 +39,7 @@ def setUpNumPlayers():
 
     print("_____________________________________________________________")
 
+
 def setUpPlayers():
     #set up the deck
     deck = Deck()
